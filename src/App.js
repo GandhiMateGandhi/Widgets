@@ -1,11 +1,12 @@
-import React from 'react';
-
-// import Accordion from "./Accordion";
-// import Search from "./Search";
-import Dropdown from "./Dropdown";
+import React, {useState} from 'react';
+import Accordion from "./Accordion";
+import Search from "./Search";
 import Translate from "./Translate";
+import Route from "./Route";
+import Dropdown from "./Dropdown";
+import Header from "./Header";
 
-/*const items = [
+const items = [
     {
         title: 'What is React?',
         content: 'React is a frontend JA library'
@@ -18,7 +19,7 @@ import Translate from "./Translate";
         title: 'How do you use React?',
         content: 'You use React by creating components'
     }
-]*/
+]
 
 const options = [
     {
@@ -37,17 +38,31 @@ const options = [
 
 
 const App = () => {
-
+    const [selected, setSelected] = useState(options[0])
+    
     return (
         <div>
-            <Translate />
-            {/*<Accordion items={items} />*/}
-            {/*<Search />*/}
-            {/*<Dropdown
-                selected={selected}
-                options={options}
-                onSelectedChange={setSelected}
-            />*/}
+            <Header />
+            <Route path="/">
+                <Accordion items={items}/>
+            </Route>
+
+            <Route path="/search">
+                <Search/>
+            </Route>
+
+            <Route path="/translate">
+                <Translate/>
+            </Route>
+
+            <Route path="/dropdown">
+                <Dropdown
+                    options={options}
+                    label="Select a color"
+                    selected={selected}
+                    onSelectedChange={setSelected}
+                />
+            </Route>
         </div>
     )
 }
